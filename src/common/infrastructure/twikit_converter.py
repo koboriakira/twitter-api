@@ -59,7 +59,7 @@ class TwikitConverter:
 
     @staticmethod
     def convert_media(media) -> Media:
-        return Media(medium_list=[TwikitConverter.convert_medium(m) for m in media])
+        return Media(values=[TwikitConverter.convert_medium(m) for m in media])
 
     @staticmethod
     def convert_medium(medium) -> Medium:

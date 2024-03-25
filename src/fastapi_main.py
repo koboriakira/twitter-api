@@ -4,6 +4,7 @@ import time
 from fastapi import FastAPI, Request
 from mangum import Mangum
 
+from interface.fastapi_router.tweet.tweet import router as tweet_router
 
 # ログ
 logging.basicConfig(level=logging.DEBUG)
@@ -16,37 +17,12 @@ app = FastAPI(
     title="Twitter API",
     version="0.0.1",
 )
-# app.include_router(projects.router, prefix="/projects", tags=["projects"])
-# app.include_router(recipes.router, prefix="/recipes", tags=["recipes"])
-# app.include_router(healthcheck.router, prefix="/healthcheck", tags=["healthcheck"])
-# app.include_router(music.router, prefix="/music", tags=["music"])
-# app.include_router(webclip.router, prefix="/webclip", tags=["webclip"])
-# app.include_router(video.router, prefix="/video", tags=["video"])
-# app.include_router(prowrestling.router, prefix="/prowrestling", tags=["prowrestling"])
-# app.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
-# app.include_router(task.router, prefix="/task", tags=["tasks"])
-# app.include_router(page.router, prefix="/page", tags=["page"])
-# app.include_router(books.router, prefix="/books", tags=["books"])
-
-
-# handler = Mangum(app, lifespan="off")
+app.include_router(tweet_router, prefix="/tweet", tags=["tweet"])
 
 
 @app.get("/healthcheck")
 async def healthcheck():
     return {"status": "ok"}
-
-
-@app.get("/tweet/{tweet_id}")
-async def get_tweet(tweet_id: str):
-    from use_case.find_tweet_use_case import FindTweetUseCase
-    from common.infrastructure.twikit_client import Twikit
-    from common.value.tweet_id import TweetId
-
-    twitter_client = Twikit.generate_instance()
-    use_case = FindTweetUseCase(twitter_client=twitter_client)
-    tweet = use_case.execute(tweet_id=TweetId(tweet_id))
-    return {"tweet": tweet}
 
 
 # ミドルウェア
