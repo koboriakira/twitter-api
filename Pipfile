@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 twikit = "*"
+fastapi = "*"
+mangum = "*"
 
 [dev-packages]
 pytest = "*"
