@@ -43,7 +43,7 @@ async def get_tweet(tweet_id: str):
     from common.infrastructure.twikit_client import Twikit
     from common.value.tweet_id import TweetId
 
-    twitter_client = Twikit()
+    twitter_client = Twikit.generate_instance()
     use_case = FindTweetUseCase(twitter_client=twitter_client)
     tweet = use_case.execute(tweet_id=TweetId(tweet_id))
     return {"tweet": tweet}
