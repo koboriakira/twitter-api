@@ -33,8 +33,6 @@ export class TwitterApi extends Stack {
     this.makeApiGateway(main);
   }
 
-
-
   /**
    * Create or retrieve an IAM role for the Lambda function.
    * @returns {iam.Role} The created or retrieved IAM role.
@@ -117,11 +115,11 @@ export class TwitterApi extends Stack {
    */
   makeApiGateway(fn: lambda.Function) {
     // REST API の定義
-    const restapi = new apigateway.RestApi(this, "Notion-Api", {
+    const restapi = new apigateway.RestApi(this, "Twitter-Api", {
       deployOptions: {
         stageName: "v1",
       },
-      restApiName: "Notion-Api",
+      restApiName: "Twitter-Api",
     });
     // ルートとインテグレーションの設定
     restapi.root.addMethod("ANY", new apigateway.LambdaIntegration(fn));
