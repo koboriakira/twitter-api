@@ -3,7 +3,7 @@ from typing import Any
 
 
 class BaseResponse(BaseModel):
-    status: str = Field(default="SUCCESS", regex="^(SUCCESS|WARNING|ERROR)$")
+    status: str = Field(default="SUCCESS")
     message: str = Field(default="")
     data: Any = Field(default=None)
 
