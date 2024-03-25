@@ -12,6 +12,7 @@ pydantic = "*"
 [dev-packages]
 pytest = "*"
 pytest-watch = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.11"
