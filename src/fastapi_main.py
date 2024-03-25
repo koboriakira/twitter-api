@@ -62,3 +62,6 @@ async def add_process_time_header(request: Request, call_next):  # noqa: ANN001,
     # except:
     #     ErrorReporter().execute()
     #     raise
+
+
+handler = Mangum(app, lifespan="off")
