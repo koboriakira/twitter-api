@@ -7,6 +7,8 @@ name = "pypi"
 twikit = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-watch = "*"
 
 [requires]
 python_version = "3.11"
