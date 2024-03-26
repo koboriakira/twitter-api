@@ -1,6 +1,8 @@
+import contextlib
 from pathlib import Path
 
 import boto3
+from botocore.exceptions import ClientError
 
 
 class S3Client:
@@ -19,4 +21,6 @@ class S3Client:
         """S3からファイルをダウンロード"""
         if Path(file_path).exists():
             return  # すでにファイルが存在する場合は何もしない
-        self.s3_client.download_file(self.BUCKET_NAME, file_path, file_path)
+
+        with contextlib.suppress(ClientError):
+            self.s3_client.download_file(self.BUCKET_NAME, file_path, file_path)
