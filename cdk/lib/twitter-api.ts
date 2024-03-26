@@ -116,6 +116,7 @@ export class TwitterApi extends Stack {
     fn.addEnvironment("TWITTER_USER_NAME", process.env.TWITTER_USER_NAME || "");
     fn.addEnvironment("TWITTER_PASSWORD", process.env.TWITTER_PASSWORD || "");
     fn.addEnvironment("TWITTER_EMAIL_ADDRESS", process.env.TWITTER_EMAIL_ADDRESS || "");
+    fn.addEnvironment("ENVIRONMENT", "production");
 
     if (function_url_enabled) {
       fn.addFunctionUrl({
