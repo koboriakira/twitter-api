@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
 
-from src.common.domain.tweet import Tweet
-from src.utils.environment import Environment
-from src.utils.s3_client import S3Client
 from twikit import Client
 
+from common.domain.tweet import Tweet
 from common.infrastructure.twikit_converter import TwikitConverter
 from common.value.tweet_id import TweetId
+from utils.environment import Environment
+from utils.s3_client import S3Client
 
 TMP_DIR = "/tmp"  # noqa: S108
 COOKIE_FILE_PATH = f"{TMP_DIR}/twikit_cookies.json"
