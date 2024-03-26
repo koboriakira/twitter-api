@@ -1,11 +1,11 @@
-from common.value.tweet_id import TweetId
-from common.value.user_id import UserId
-from common.value.medium import Medium
-from common.value.media import Media
-from common.value.url import Url
 from common.domain.tweet import Tweet
 from common.domain.user import User
 from common.value.created_at import CreatedAt
+from common.value.media import Media
+from common.value.medium import Medium
+from common.value.tweet_id import TweetId
+from common.value.url import Url
+from common.value.user_id import UserId
 
 
 class TwikitConverter:
@@ -69,5 +69,5 @@ class TwikitConverter:
             media_url_https=medium["media_url_https"],
             display_url=medium["display_url"],
             expanded_url=medium["expanded_url"],
-            ext_alt_text=medium["ext_alt_text"],
+            ext_alt_text=medium.get("ext_alt_text", ""),
         )
