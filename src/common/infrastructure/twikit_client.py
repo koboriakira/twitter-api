@@ -18,6 +18,7 @@ class Twikit:
     @staticmethod
     def generate_instance() -> "Twikit":
         client = Client("ja")
+        # FIXME: S3にcookieを保存する
         if os.path.exists(COOKIE_FILE_PATH):
             client.load_cookies(COOKIE_FILE_PATH)
         else:
