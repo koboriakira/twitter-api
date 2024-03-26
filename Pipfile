@@ -8,6 +8,7 @@ twikit = "*"
 fastapi = "*"
 mangum = "*"
 pydantic = "*"
+boto3 = "*"
 
 [dev-packages]
 pytest = "*"
