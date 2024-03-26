@@ -58,7 +58,9 @@ class TwikitConverter:
         )
 
     @staticmethod
-    def convert_media(media) -> Media:
+    def convert_media(media) -> Media | None:
+        if media is None:
+            return None
         return Media(values=[TwikitConverter.convert_medium(m) for m in media])
 
     @staticmethod
