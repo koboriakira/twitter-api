@@ -15,7 +15,7 @@ class S3Client:
         """ファイルをS3にアップロード"""
         self.s3_client.upload_file(file_path, self.BUCKET_NAME, file_path)
 
-    def load(self, file_path: str) -> None:
+    def download(self, file_path: str) -> None:
         """S3からファイルをダウンロード"""
         if Path(file_path).exists():
             return  # すでにファイルが存在する場合は何もしない

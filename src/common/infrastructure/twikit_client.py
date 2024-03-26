@@ -1,25 +1,32 @@
-from common.infrastructure.twikit_converter import TwikitConverter
-from twikit import Client
 import os
 from pathlib import Path
+
+from src.common.domain.tweet import Tweet
+from src.utils.environment import Environment
+from src.utils.s3_client import S3Client
+from twikit import Client
+
+from common.infrastructure.twikit_converter import TwikitConverter
 from common.value.tweet_id import TweetId
 
-COOKIE_FILE_DIR = "/tmp/twikit"
-Path(COOKIE_FILE_DIR).mkdir(parents=True, exist_ok=True)
-
-COOKIE_FILE_PATH = f"{COOKIE_FILE_DIR}/cookies.json"
+TMP_DIR = "/tmp"  # noqa: S108
+COOKIE_FILE_PATH = f"{TMP_DIR}/twikit_cookies.json"
 
 
 class Twikit:
 
-    def __init__(self, client: Client):
+    def __init__(self, client: Client) -> None:
         self._client = client
 
     @staticmethod
     def generate_instance() -> "Twikit":
         client = Client("ja")
-        # FIXME: S3にcookieを保存する
-        if os.path.exists(COOKIE_FILE_PATH):
+
+        if Environment.is_production():
+            s3_client = S3Client()
+            s3_client.download(COOKIE_FILE_PATH)
+
+        if Path(COOKIE_FILE_PATH).exists():
             client.load_cookies(COOKIE_FILE_PATH)
         else:
             client.login(
@@ -28,12 +35,13 @@ class Twikit:
                 password=os.getenv("TWITTER_PASSWORD"),
             )
             client.save_cookies(COOKIE_FILE_PATH)
+            if Environment.is_production():
+                s3_client = S3Client()
+                s3_client.upload(COOKIE_FILE_PATH)
         return Twikit(client)
 
-    def find_tweet_by_id(self, tweet_id: TweetId):
+    def find_tweet_by_id(self, tweet_id: TweetId) -> Tweet:
         tweet = self._client.get_tweet_by_id(tweet_id.value)
-        user_id = tweet.user.id
-        user = self._client.get_user_by_id(user_id)
         return TwikitConverter.convert_tweet(tweet)
 
     def my(
@@ -47,7 +55,6 @@ class Twikit:
 
 if __name__ == "__main__":
     # python -m src.common.infrastructure.twikit
-    import json
 
     twikit = Twikit.generate_instance()
 
