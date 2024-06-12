@@ -17,3 +17,7 @@ class Tweet:
     @property
     def url(self) -> str:
         return f"https://twitter.com/{self.user.screen_name}/status/{self.tweet_id.value}"
+
+    @property
+    def embed_tweet_url(self) -> str:
+        return f"https://publish.twitter.com/?query={self.url}&widget=Tweet"

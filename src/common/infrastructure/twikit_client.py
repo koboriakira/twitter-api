@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
 
-from twikit import Client
+from src.common.domain.tweets import Tweets
+from twikit import Client, User
 
 from common.domain.tweet import Tweet
 from common.infrastructure.twikit_converter import TwikitConverter
@@ -14,7 +15,6 @@ COOKIE_FILE_PATH = f"{TMP_DIR}/twikit_cookies.json"
 
 
 class Twikit:
-
     def __init__(self, client: Client) -> None:
         self._client = client
 
@@ -44,13 +44,15 @@ class Twikit:
         tweet = self._client.get_tweet_by_id(tweet_id.value)
         return TwikitConverter.convert_tweet(tweet)
 
-    def my(
-        self,
-    ):
-        return self._client.get_user_by_screen_name(os.getenv("TWITTER_USER_NAME"))
+    def get_tweets_by_screen_name(self, screen_name: str) -> Tweets:
+        """指定したユーザーのツイートを取得します"""
+        user = self._client.get_user_by_screen_name(screen_name)
+        user_tweets = user.get_tweets("Tweets")
+        user_tweet_ids = [TweetId(tweet.id) for tweet in user_tweets]
+        return Tweets([self.find_tweet_by_id(tweet_id) for tweet_id in user_tweet_ids])
 
-    def get_user_by_screen_name(self, screen_name):
-        return self._client.get_user_by_screen_name(screen_name)
+    def my(self) -> User:
+        return self._client.get_user_by_screen_name(os.getenv("TWITTER_USER_NAME"))
 
 
 if __name__ == "__main__":
