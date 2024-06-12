@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from common.value.user_id import UserId
+
 from common.value.url import Url
+from common.value.user_id import UserId
 
 
 @dataclass
