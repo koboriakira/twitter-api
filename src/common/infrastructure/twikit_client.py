@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
 
-from src.common.domain.tweets import Tweets
 from twikit import Client, User
 
 from common.domain.tweet import Tweet
+from common.domain.tweets import Tweets
 from common.infrastructure.twikit_converter import TwikitConverter
 from common.value.tweet_id import TweetId
 from utils.environment import Environment

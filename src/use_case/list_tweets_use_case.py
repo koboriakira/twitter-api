@@ -1,8 +1,8 @@
 from datetime import datetime
 
+from common.domain.tweets import Tweets
 from common.infrastructure.twikit_client import Twikit
-from src.common.domain.tweets import Tweets
-from src.utils import dateutil
+from utils import dateutil
 
 
 class ListTweetsUseCase:
@@ -27,4 +27,4 @@ if __name__ == "__main__":
         start_datetime=dateutil.jst_datetime(year=2024, month=6, day=9),
         end_datetime=dateutil.jst_datetime(year=2024, month=6, day=10),
     )
-    print([tweet.embed_tweet_url for tweet in tweets.values])
+    print([tweet.embed_tweet_url for tweet in tweets])
