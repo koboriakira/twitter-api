@@ -2,10 +2,9 @@ import logging
 import time
 
 from fastapi import FastAPI, Request
-from mangum import Mangum
-
 from interface.fastapi_router.tweet.tweet import router as tweet_router
 from interface.fastapi_router.user.user import router as user_router
+from mangum import Mangum
 
 # ログ
 logging.basicConfig(level=logging.DEBUG)

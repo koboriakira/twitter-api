@@ -1,7 +1,6 @@
-from fastapi import APIRouter
-
 from common.infrastructure.twikit_client import Twikit
 from common.value.tweet_id import TweetId
+from fastapi import APIRouter
 from interface.fastapi_router.tweet.tweet_response import (
     TweetModelTranslator,
     TweetResponse,

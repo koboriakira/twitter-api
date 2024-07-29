@@ -1,12 +1,11 @@
 import os
 from pathlib import Path
 
-from twikit import Client, User
-
 from common.domain.tweet import Tweet
 from common.domain.tweets import Tweets
 from common.infrastructure.twikit_converter import TwikitConverter
 from common.value.tweet_id import TweetId
+from twikit import Client, User
 from utils.environment import Environment
 from utils.s3_client import S3Client
 
@@ -56,7 +55,7 @@ class Twikit:
 
 
 if __name__ == "__main__":
-    # python -m src.common.infrastructure.twikit
+    # python -m src.common.infrastructure.twikit_client
 
     twikit = Twikit.generate_instance()
 
