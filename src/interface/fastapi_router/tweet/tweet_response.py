@@ -1,7 +1,8 @@
-from interface.fastapi_router.base_response import BaseResponse
-from common.domain.tweet import Tweet
-from pydantic import BaseModel, Field
 from datetime import datetime
+
+from common.domain.tweet import Tweet
+from interface.fastapi_router.base_response import BaseResponse
+from pydantic import BaseModel, Field
 
 
 class UserModel(BaseModel):
@@ -21,6 +22,7 @@ class TweetModel(BaseModel):
     url: str
     created_at: datetime
     user: UserModel
+    embed_tweet_html: str
     media: list[MediumModel] | None = Field(default=None)
 
 
@@ -47,6 +49,7 @@ class TweetModelTranslator:
             url=tweet.url,
             created_at=tweet.created_at.value,
             user=user_model,
+            embed_tweet_html=tweet.embed_tweet_html,
             media=media if len(media) > 0 else None,
         )
         return TweetResponse(data=tweet_model)
