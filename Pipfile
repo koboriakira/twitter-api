@@ -4,11 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-twikit = "=1.7.6"
+twikit = "*"
 fastapi = ">=0.99.0"
 pydantic = ">=1.10.9"
 mangum = ">=0.17.0"
 boto3 = "*"
+fake-useragent = "*"
 
 [dev-packages]
 pytest = "*"
