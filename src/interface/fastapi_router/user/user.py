@@ -14,11 +14,11 @@ router = APIRouter()
 
 
 @router.get("/{user_screen_name}/tweets/")
-def get_tweet(user_screen_name: str) -> list[TweetResponse]:
+async def get_tweet(user_screen_name: str) -> list[TweetResponse]:
     """指定したユーザーの当日のツイートを取得します"""
-    twitter_client = Twikit.generate_instance()
+    twitter_client = await Twikit.generate_instance()
     use_case = ListTweetsUseCase(twitter_client=twitter_client)
-    tweets = use_case.execute(
+    tweets = await use_case.execute(
         user_screen_name=user_screen_name,
         start_datetime=jst_today_datetime() - timedelta(days=1),
         end_datetime=jst_today_datetime(),
