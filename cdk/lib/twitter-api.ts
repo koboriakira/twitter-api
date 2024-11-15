@@ -15,7 +15,7 @@ import { convertToCamelCase } from "./utils";
 
 // CONFIG
 const RUNTIME = lambda.Runtime.PYTHON_3_11;
-const TIMEOUT = 30;
+const TIMEOUT = 120;
 const APP_DIR_PATH = "../src";
 const LAYER_ZIP_PATH = "../dependencies.zip";
 
@@ -45,9 +45,7 @@ export class TwitterApi extends Stack {
    * Create or retrieve an IAM role for the Lambda function.
    * @returns {iam.Role} The created or retrieved IAM role.
    */
-  makeRole(
-    bucketArn: string
-  ) {
+  makeRole(bucketArn: string) {
     // Lambdaの実行ロールを取得または新規作成
     const role = new iam.Role(this, "LambdaRole", {
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
@@ -115,7 +113,10 @@ export class TwitterApi extends Stack {
 
     fn.addEnvironment("TWITTER_USER_NAME", process.env.TWITTER_USER_NAME || "");
     fn.addEnvironment("TWITTER_PASSWORD", process.env.TWITTER_PASSWORD || "");
-    fn.addEnvironment("TWITTER_EMAIL_ADDRESS", process.env.TWITTER_EMAIL_ADDRESS || "");
+    fn.addEnvironment(
+      "TWITTER_EMAIL_ADDRESS",
+      process.env.TWITTER_EMAIL_ADDRESS || ""
+    );
     fn.addEnvironment("ENVIRONMENT", "production");
 
     if (function_url_enabled) {
