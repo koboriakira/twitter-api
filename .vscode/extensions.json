@@ -1,7 +1,9 @@
 {
   "recommendations": [
     "ms-python.python",
+    "ms-python.vscode-pylance",
+    "njpwerner.autodocstring",
     "charliermarsh.ruff",
-    "tamasfe.even-better-toml"
+    "tamasfe.even-better-toml",
   ]
 }
