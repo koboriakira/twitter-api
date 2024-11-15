@@ -19,15 +19,19 @@ class ListTweetsUseCase:
         tweets = await self._twitter_client.get_tweets_by_screen_name(user_screen_name)
         return tweets.filter_range(start_datetime, end_datetime)
 
+
 async def main():
     twitter_client = await Twikit.generate_instance()
     usecase = ListTweetsUseCase(twitter_client=twitter_client)
+    start_str = datetime(2024, 11, 15, 11, 0, 0, 0, tzinfo=dateutil.JST).isoformat()
+    end_str = datetime(2024, 11, 15, 12, 0, 0, 0, tzinfo=dateutil.JST).isoformat()
+    print(start_str, end_str)
     tweets = await usecase.execute(
         user_screen_name="kobori_akira_pw",
-        start_datetime=dateutil.jst_datetime(year=2024, month=6, day=9),
-        end_datetime=dateutil.jst_datetime(year=2024, month=6, day=10),
+        start_datetime=datetime.fromisoformat(start_str),
+        end_datetime=datetime.fromisoformat(end_str),
     )
-    print([tweet.embed_tweet_url for tweet in tweets])
+    print([tweet for tweet in tweets])
 
 
 if __name__ == "__main__":
