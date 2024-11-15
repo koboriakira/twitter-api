@@ -1,5 +1,6 @@
 import asyncio
 import os
+import time
 from logging import Logger, getLogger
 from pathlib import Path
 
@@ -56,22 +57,26 @@ class Twikit:
         raise Exception("Failed to login")
 
     async def find_tweet_by_id(self, tweet_id: TweetId) -> Tweet:
+        time.sleep(1)
         tweet = await self._client.get_tweet_by_id(tweet_id.value)
         return TwikitConverter.convert_tweet(tweet)
 
     async def get_tweets_by_screen_name(self, screen_name: str) -> Tweets:
         """指定したユーザーのツイートを取得します"""
+        time.sleep(1)
         user = await self._client.get_user_by_screen_name(screen_name)
+        time.sleep(1)
         user_tweets = await user.get_tweets("Tweets")
         user_tweet_ids = [TweetId(tweet.id) for tweet in user_tweets]
         return Tweets([await self.find_tweet_by_id(tweet_id) for tweet_id in user_tweet_ids])
 
     async def my(self) -> User:
+        time.sleep(1)
         return await self._client.get_user_by_screen_name(os.environ["TWITTER_USER_NAME"])
 
 async def main():
     twikit = await Twikit.generate_instance()
-    result = await twikit.find_tweet_by_id(TweetId("1772269440396333105"))
+    result = await twikit.get_tweets_by_screen_name("kobori_akira_pw")
     print(result)
 
 if __name__ == "__main__":
