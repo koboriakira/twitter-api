@@ -15,19 +15,13 @@
     "reportMissingTypeStubs": true,
     "useTypeStubForTypeshed": true
   },
-  "python.analysis.extraPaths": [
-    "./src"
-  ],
+  "python.analysis.extraPaths": ["./src"],
   "python.analysis.fixAll": [
     "source.unusedImports",
-    "source.convertImportFormat",
+    "source.convertImportFormat"
   ],
   "python.analysis.importFormat": "absolute",
   "python.analysis.typeCheckingMode": "basic",
-  "files.associations": {
-    "*.spec": "gauge",
-    "*.cpt": "gauge"
-  },
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 500 // 新しいプロジェクトならstrictにしたい
 }
