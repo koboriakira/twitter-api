@@ -1,8 +1,9 @@
 from datetime import datetime
 
+from pydantic import BaseModel, Field
+
 from common.domain.tweet import Tweet
 from interface.fastapi_router.base_response import BaseResponse
-from pydantic import BaseModel, Field
 
 
 class UserModel(BaseModel):
@@ -27,12 +28,14 @@ class TweetModel(BaseModel):
 
 
 class TweetResponse(BaseResponse):
-    data: TweetModel
+    pass
 
+class TweetsResponse(BaseResponse):
+    pass
 
 class TweetModelTranslator:
     @staticmethod
-    def translate(tweet: Tweet) -> TweetResponse:
+    def translate(tweet: Tweet) -> TweetModel:
         user_model = UserModel(
             id=tweet.user.user_id.value,
             name=tweet.user.name,
@@ -43,7 +46,7 @@ class TweetModelTranslator:
             MediumModel(url=m.media_url_https, alt_text=m.ext_alt_text)
             for m in medium_list
         ]
-        tweet_model = TweetModel(
+        return TweetModel(
             id=tweet.tweet_id.value,
             text=tweet.text,
             url=tweet.url,
@@ -52,4 +55,3 @@ class TweetModelTranslator:
             embed_tweet_html=tweet.embed_tweet_html,
             media=media if len(media) > 0 else None,
         )
-        return TweetResponse(data=tweet_model)
